@@ -1,0 +1,26 @@
+1.数据理解
+你的任务是闭集说话人识别（Closed-set Speaker Identification）：给定一段语音，判断它属于哪位
+说话人（462分类问题）。
+用到数据集的哪些部分：
+*输入 X.wav 音频文件（只用音频，不用 .txt/.wrd/.phn）
+说话人识别的目标是"这段声音是谁说的"，本质上是提取声道/发音习惯等说话人身份特征，跟说了什么内容
+无关。.txt/.wrd/.phn 是为语音识别（ASR）、音素研究等任务准备的，本实验不需要。
+*标签 Yspeaker_id（462个类别）
+不用方言区、性别、sentence_type（这些是辅助元信息）
+训练集结构：462位说话人，每人6句话（5句SX + 1句SI），共2772条。
+测试集：462位说话人，每人两句SI。
+
+问题与解决方法：
+#环境配置：
+1. .venv\Scripts\activate激活虚拟环境
+2. uv pip install librosa soundfile scikit-learn torch torchaudio matplotlib seaborn
+安装依赖包
+3. 为ipynb安装内核，python -m ipykernel install --user --name=myenv --display-name "Python (myenv)"
+4. 选择内核“说话人识别（3.13.5）”
+5. 注意，重启内核后之前的运行都失效了，要再运行一遍
+#GPU不可用，因为安装的是cpu版本的pytorch
+nvidia-smi 确定CUDA版本，12.5
+uv pip uninstall torch torchaudio 卸载cpu版
+uv pip install torch torchaudio --index-url https://download.pytorch.org/whl/cu124 安装gpu版，注意目前最高是124
+验证安装（先restart内核）
+
